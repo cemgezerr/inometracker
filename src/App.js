@@ -1,41 +1,42 @@
-import React, { useState, useEffect } from 'react';
-import Header from './components/Header';
-import IncomeForm from './components/IncomeForm';
-
-
+import React , {useState,useEffect} from 'react';
+import Header from './components/Header'
+import IncomeForm from './components/IncomeForm'
 function App() {
+  const [income,setIncome] =useState([])
+  // bu bizim incomelarımız arrayi olacak.
+  const [totalIncome,setTotalIncome] = useState(0);
 
-  const [income,setIncome] = useState([])
-  const [totalIncome,setTotalIncome] = useState(0)
-
-  useEffect(() => {
+  useEffect(()=>{
     let total = 0;
-    for (let i = 0; i < income.length; i++) {
-      total += parseInt(income[i].price);
-      
+    for(let i = 0 ; i < income.length; i++){
+        total += parseInt(income[i].price);
     }
-    setTotalIncome(total)
-  })
+    setTotalIncome(total);
+    //burda çalıştığını göster
+  },[income])
 
-  const deleteItem = (id) => {
-    const newArr = income.filter(item => item.id !== id)
-    setIncome(newArr)
-  }
-
-
+function deleteItem(id){
+ const newArr = income.filter(item => item.id !== id)
+ setIncome(newArr);
+}
   return (
     <div className="App">
-      <Header totalIncome={totalIncome}/>
-      <IncomeForm income={income} setIncome={setIncome} />
-      <div className='incomeListContainer'>
-        {income.map((item)=>(
-          <div key={item.id} className='incomeList'>
-            <div>{item.desc}</div>
-            <div>{item.price}</div>
-            <div>{item.date}</div>
-            <button onClick={(e) => deleteItem(item.id)}> Delete</button>
-          </div>
-          ))}
+      <Header totalIncome={totalIncome} />
+      <IncomeForm income={income} setIncome={setIncome}/>
+      <div className="incomeListContainer">
+      {income.map((item) => (
+
+        <div key={item.id} className="incomeList">
+
+        <div>{item.desc}</div>
+        <div>{item.price} TL</div>
+        <div>{item.date}</div>
+
+        <button onClick={(e) => deleteItem(item.id)}>Delete</button>
+
+        </div>
+
+      ))}
       </div>
     </div>
   );
