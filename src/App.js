@@ -3,7 +3,6 @@ import Header from './components/Header'
 import IncomeForm from './components/IncomeForm'
 function App() {
   const [income,setIncome] =useState([])
-  // bu bizim incomelarımız arrayi olacak.
   const [totalIncome,setTotalIncome] = useState(0);
 
   useEffect(()=>{
@@ -12,7 +11,6 @@ function App() {
         total += parseInt(income[i].price);
     }
     setTotalIncome(total);
-    //burda çalıştığını göster
   },[income])
 
 function deleteItem(id){
